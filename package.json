@@ -4,7 +4,9 @@
     "description": "Wildfish JS utils",
     "main": "index.js",
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "build:dev": "browserify ./index.js -o ./dist/wildfish.js -s wildfish -d",
+        "build": "browserify ./index.js -o ./dist/wildfish.js -s wildfish"
     },
     "repository": {
         "type": "git",
@@ -18,5 +20,34 @@
     "bugs": {
         "url": "https://github.com/wildfish/wildjs/issues"
     },
-    "homepage": "https://github.com/wildfish/wildjs#readme"
+    "homepage": "https://github.com/wildfish/wildjs#readme",
+    "browserify": {
+        "transform": [
+            [
+                "babelify",
+                {
+                    "blacklist": [
+                        "regenerator"
+                    ]
+                }
+            ]
+        ]
+    },
+    "devDependencies": {
+        "babel-jest": "^5.3.0",
+        "babelify": "^6.1.2"
+    },
+    "jest": {
+        "collectCoverage": true,
+        "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+        "testFileExtensions": [
+            "es6",
+            "js"
+        ],
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "es6"
+        ]
+    }
 }

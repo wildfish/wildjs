@@ -1,11 +1,8 @@
-import config from "../config";
-
-
 /*****************************
  * Format a url based on args
  *****************************/
 export function formatUrl(url, args) {
-    let result = config.apiRoot + url;
+    let result = url;
 
     if (args === undefined) {
         return result;

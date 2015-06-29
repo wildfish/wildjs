@@ -1,7 +1,6 @@
 jest.autoMockOff();
 
 var formatUrl = require('../urls').formatUrl;
-var config = require('../../config');
 
 
 describe("Format url patterns", () => {
@@ -10,13 +9,13 @@ describe("Format url patterns", () => {
         let url = "/test/<id>/";
         let newUrl = formatUrl(url, data);
 
-        expect(newUrl).toBe(config.apiRoot + "/test/1/");
+        expect(newUrl).toBe("/test/1/");
     });
 
     it("should return the original url if no paramters were passed", () => {
         let url = "/test/";
         let newUrl = formatUrl(url);
-        expect(newUrl).toBe(config.apiRoot + "/test/");
+        expect(newUrl).toBe("/test/");
     });
 
     it("should not ", () => {
