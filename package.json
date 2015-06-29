@@ -1,0 +1,22 @@
+{
+    "name": "wildjs",
+    "version": "0.0.1",
+    "description": "Wildfish JS utils",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/wildfish/wildjs.git"
+    },
+    "keywords": [
+        "wildfish"
+    ],
+    "author": "Jonas Hagstedt <hagstedt@gmail.com> (https://github.com/jonashagstedt)",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/wildfish/wildjs/issues"
+    },
+    "homepage": "https://github.com/wildfish/wildjs#readme"
+}
