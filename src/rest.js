@@ -74,9 +74,7 @@ const rest = {
     },
 
     put: function (url, data) {
-        console.log(data);
-        return new Promise();
-        //return makeRequest(url, "PUT", data);
+        return makeRequest(url, "PUT", data);
     },
 
     patch: function (url, data) {
