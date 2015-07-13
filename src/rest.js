@@ -55,7 +55,12 @@ function makeRequest (url, method, data) {
                     resolve();
                 }
             } else {
-                reject(JSON.parse(req.responseText));
+                try {
+                    const jsonData = JSON.parse(req.responseText);
+                    reject(jsonData);
+                } catch(err) {
+                    reject(req.responseText);
+                }
             }
         };
 
@@ -65,34 +70,38 @@ function makeRequest (url, method, data) {
 
 
 const rest = {
-    get: function (url, data) {
+    get(url, data) {
         return makeRequest(url, "GET", data);
     },
 
-    post: function (url, data) {
+    post(url, data) {
         return makeRequest(url, "POST", data);
     },
 
-    put: function (url, data) {
+    put(url, data) {
         return makeRequest(url, "PUT", data);
     },
 
-    patch: function (url, data) {
+    patch(url, data) {
         return makeRequest(url, "PATCH", data);
     },
 
-    "delete": function (url, data) {
+    "delete"(url, data) {
         return makeRequest(url, "DELETE", data);
     },
 
-    setAditionalHeaders: function (key, value) {
+    setAdditionalHeaders(key, value) {
         extraHeaders[key] = value;
     },
 
-    removeHeader: function(key) {
+    removeHeader(key) {
         if (key in extraHeaders) {
             delete extraHeaders[key];
         }
+    },
+
+    getHeaders() {
+        return extraHeaders;
     }
 };
 

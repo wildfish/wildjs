@@ -4,6 +4,7 @@ class FakeRequest {
     constructor(onSuccess, onFail) {
         this.onSuccess = onSuccess;
         this.onFail = onFail;
+        this.id = requests.length + 1;
     }
 
     success(data) {
@@ -27,7 +28,7 @@ function makeFakeRequest(url, data) {
 }
 
 
-export default {
+const mockRest = {
     get(url, data) {
         return makeFakeRequest(url, data);
     },
@@ -49,10 +50,18 @@ export default {
     },
 
     success(data) {
+        console.log('SUCCESSING');
+        console.log(requests[0].id);
         requests[0].success(data);
     },
 
     fail(errors) {
         requests[0].fail(errors);
+    },
+
+    getstuff() {
+        return requests;
     }
 };
+
+export {mockRest};
