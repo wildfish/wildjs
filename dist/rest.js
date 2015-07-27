@@ -23,6 +23,8 @@ Object.defineProperty(exports, "__esModule", {
 var extraHeaders = {};
 
 function makeRequest(url, method, data) {
+    var contentType = arguments.length <= 3 || arguments[3] === undefined ? "application/json" : arguments[3];
+
     return new Promise(function (resolve, reject) {
 
         url += "?format=json";
@@ -36,11 +38,11 @@ function makeRequest(url, method, data) {
         //}
 
         if (req.overrideMimeType !== undefined) {
-            req.overrideMimeType("application/json");
+            req.overrideMimeType(contentType);
         }
 
         req.open(method, url, true);
-        req.setRequestHeader("Content-Type", "application/json");
+        req.setRequestHeader("Content-Type", contentType);
 
         for (var key in extraHeaders) {
             req.setRequestHeader(key, extraHeaders[key]);
@@ -74,23 +76,33 @@ function makeRequest(url, method, data) {
 
 var rest = {
     get: function get(url, data) {
-        return makeRequest(url, "GET", data);
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+
+        return makeRequest(url, "GET", data, contentType);
     },
 
     post: function post(url, data) {
-        return makeRequest(url, "POST", data);
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+
+        return makeRequest(url, "POST", data, contentType);
     },
 
     put: function put(url, data) {
-        return makeRequest(url, "PUT", data);
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+
+        return makeRequest(url, "PUT", data, contentType);
     },
 
     patch: function patch(url, data) {
-        return makeRequest(url, "PATCH", data);
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+
+        return makeRequest(url, "PATCH", data, contentType);
     },
 
     "delete": function _delete(url, data) {
-        return makeRequest(url, "DELETE", data);
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+
+        return makeRequest(url, "DELETE", data, contentType);
     },
 
     setAdditionalHeaders: function setAdditionalHeaders(key, value) {

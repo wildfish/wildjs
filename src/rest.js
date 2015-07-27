@@ -18,7 +18,7 @@
 const extraHeaders = {};
 
 
-function makeRequest (url, method, data) {
+function makeRequest (url, method, data, contentType = 'application/json') {
     return new Promise((resolve, reject) => {
 
         url += "?format=json";
@@ -32,11 +32,11 @@ function makeRequest (url, method, data) {
         //}
 
         if (req.overrideMimeType !== undefined) {
-            req.overrideMimeType("application/json");
+            req.overrideMimeType(contentType);
         }
 
         req.open(method, url, true);
-        req.setRequestHeader("Content-Type", "application/json");
+        req.setRequestHeader("Content-Type", contentType);
 
         for (let key in extraHeaders) {
             req.setRequestHeader(key, extraHeaders[key]);
@@ -70,24 +70,24 @@ function makeRequest (url, method, data) {
 
 
 const rest = {
-    get(url, data) {
-        return makeRequest(url, "GET", data);
+    get(url, data, contentType = 'application/json') {
+        return makeRequest(url, "GET", data, contentType);
     },
 
-    post(url, data) {
-        return makeRequest(url, "POST", data);
+    post(url, data, contentType = 'application/json') {
+        return makeRequest(url, "POST", data, contentType);
     },
 
-    put(url, data) {
-        return makeRequest(url, "PUT", data);
+    put(url, data, contentType = 'application/json') {
+        return makeRequest(url, "PUT", data, contentType);
     },
 
-    patch(url, data) {
-        return makeRequest(url, "PATCH", data);
+    patch(url, data, contentType = 'application/json') {
+        return makeRequest(url, "PATCH", data, contentType);
     },
 
-    "delete"(url, data) {
-        return makeRequest(url, "DELETE", data);
+    "delete"(url, data, contentType = 'application/json') {
+        return makeRequest(url, "DELETE", data, contentType);
     },
 
     setAdditionalHeaders(key, value) {
