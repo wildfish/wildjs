@@ -70,7 +70,11 @@ function makeRequest(url, method, data) {
             }
         };
 
-        req.send(JSON.stringify(data));
+        if (contentType === "application/json") {
+            req.send(JSON.stringify(data));
+        } else {
+            req.send(data);
+        }
     });
 }
 
