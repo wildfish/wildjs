@@ -31,12 +31,17 @@ function makeRequest (url, method, data, contentType = 'application/json') {
         //    req.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
         //}
 
-        if (req.overrideMimeType !== undefined) {
-            req.overrideMimeType(contentType);
+        req.open(method, url, true);
+
+        // if the content tpye is multipart/form-data let the browser handle it
+        if (contentType !== 'multipart/form-data') {
+            if (req.overrideMimeType !== undefined) {
+                req.overrideMimeType(contentType);
+            }
+
+            req.setRequestHeader("Content-Type", contentType);
         }
 
-        req.open(method, url, true);
-        req.setRequestHeader("Content-Type", contentType);
 
         for (let key in extraHeaders) {
             req.setRequestHeader(key, extraHeaders[key]);

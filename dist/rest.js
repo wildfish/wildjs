@@ -15,19 +15,19 @@
 //    return cookieValue;
 //}
 
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
     value: true
 });
 var extraHeaders = {};
 
 function makeRequest(url, method, data) {
-    var contentType = arguments.length <= 3 || arguments[3] === undefined ? "application/json" : arguments[3];
+    var contentType = arguments.length <= 3 || arguments[3] === undefined ? 'application/json' : arguments[3];
 
     return new Promise(function (resolve, reject) {
 
-        url += "?format=json";
+        url += '?format=json';
 
         var req = new XMLHttpRequest();
 
@@ -37,12 +37,16 @@ function makeRequest(url, method, data) {
         //    req.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
         //}
 
-        if (req.overrideMimeType !== undefined) {
-            req.overrideMimeType(contentType);
-        }
-
         req.open(method, url, true);
-        req.setRequestHeader("Content-Type", contentType);
+
+        // if the content tpye is multipart/form-data let the browser handle it
+        if (contentType !== 'multipart/form-data') {
+            if (req.overrideMimeType !== undefined) {
+                req.overrideMimeType(contentType);
+            }
+
+            req.setRequestHeader('Content-Type', contentType);
+        }
 
         for (var key in extraHeaders) {
             req.setRequestHeader(key, extraHeaders[key]);
@@ -70,7 +74,7 @@ function makeRequest(url, method, data) {
             }
         };
 
-        if (contentType === "application/json") {
+        if (contentType === 'application/json') {
             req.send(JSON.stringify(data));
         } else {
             req.send(data);
@@ -80,33 +84,33 @@ function makeRequest(url, method, data) {
 
 var rest = {
     get: function get(url, data) {
-        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? 'application/json' : arguments[2];
 
-        return makeRequest(url, "GET", data, contentType);
+        return makeRequest(url, 'GET', data, contentType);
     },
 
     post: function post(url, data) {
-        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? 'application/json' : arguments[2];
 
-        return makeRequest(url, "POST", data, contentType);
+        return makeRequest(url, 'POST', data, contentType);
     },
 
     put: function put(url, data) {
-        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? 'application/json' : arguments[2];
 
-        return makeRequest(url, "PUT", data, contentType);
+        return makeRequest(url, 'PUT', data, contentType);
     },
 
     patch: function patch(url, data) {
-        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? 'application/json' : arguments[2];
 
-        return makeRequest(url, "PATCH", data, contentType);
+        return makeRequest(url, 'PATCH', data, contentType);
     },
 
-    "delete": function _delete(url, data) {
-        var contentType = arguments.length <= 2 || arguments[2] === undefined ? "application/json" : arguments[2];
+    'delete': function _delete(url, data) {
+        var contentType = arguments.length <= 2 || arguments[2] === undefined ? 'application/json' : arguments[2];
 
-        return makeRequest(url, "DELETE", data, contentType);
+        return makeRequest(url, 'DELETE', data, contentType);
     },
 
     setAdditionalHeaders: function setAdditionalHeaders(key, value) {
