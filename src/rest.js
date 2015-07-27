@@ -64,7 +64,12 @@ function makeRequest (url, method, data, contentType = 'application/json') {
             }
         };
 
-        req.send(JSON.stringify(data));
+        if(contentType === 'application/json'){
+            req.send(JSON.stringify(data));
+        }
+        else {
+            req.send(data);
+        }
     });
 }
 
