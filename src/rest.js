@@ -18,7 +18,7 @@
 const extraHeaders = {};
 
 
-function makeRequest (url, method, data) {
+function makeRequest (url, method, data, contentType = 'application/json') {
     return new Promise((resolve, reject) => {
 
         url += "?format=json";
@@ -31,12 +31,17 @@ function makeRequest (url, method, data) {
         //    req.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
         //}
 
-        if (req.overrideMimeType !== undefined) {
-            req.overrideMimeType("application/json");
+        req.open(method, url, true);
+
+        // if the content tpye is multipart/form-data let the browser handle it
+        if (contentType !== 'multipart/form-data') {
+            if (req.overrideMimeType !== undefined) {
+                req.overrideMimeType(contentType);
+            }
+
+            req.setRequestHeader("Content-Type", contentType);
         }
 
-        req.open(method, url, true);
-        req.setRequestHeader("Content-Type", "application/json");
 
         for (let key in extraHeaders) {
             req.setRequestHeader(key, extraHeaders[key]);
@@ -64,30 +69,35 @@ function makeRequest (url, method, data) {
             }
         };
 
-        req.send(JSON.stringify(data));
+        if(contentType === 'application/json'){
+            req.send(JSON.stringify(data));
+        }
+        else {
+            req.send(data);
+        }
     });
 }
 
 
 const rest = {
-    get(url, data) {
-        return makeRequest(url, "GET", data);
+    get(url, data, contentType = 'application/json') {
+        return makeRequest(url, "GET", data, contentType);
     },
 
-    post(url, data) {
-        return makeRequest(url, "POST", data);
+    post(url, data, contentType = 'application/json') {
+        return makeRequest(url, "POST", data, contentType);
     },
 
-    put(url, data) {
-        return makeRequest(url, "PUT", data);
+    put(url, data, contentType = 'application/json') {
+        return makeRequest(url, "PUT", data, contentType);
     },
 
-    patch(url, data) {
-        return makeRequest(url, "PATCH", data);
+    patch(url, data, contentType = 'application/json') {
+        return makeRequest(url, "PATCH", data, contentType);
     },
 
-    "delete"(url, data) {
-        return makeRequest(url, "DELETE", data);
+    "delete"(url, data, contentType = 'application/json') {
+        return makeRequest(url, "DELETE", data, contentType);
     },
 
     setAdditionalHeaders(key, value) {
