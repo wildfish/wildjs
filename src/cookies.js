@@ -9,7 +9,36 @@ const getCookieStore = () => {
     try {
         return window.document;
     } catch (er) {
-        return {cookie: ""};
+        return {
+            cookieStore: {},
+            cookie: {
+                getItem(sKey) {
+                    return this.cookieStore[sKey];
+                },
+
+                setItem(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+                    this.cookieStore[sKey] = sValue;
+                },
+
+                removeItem(sKey, sPath, sDomain) {
+                    delete this.cookieStore[sKey];
+                },
+
+                hasItem(sKey) {
+                    return this.cookieStore[sKey] !== undefined;
+                },
+
+                keys() {
+                    let keyCollection = [];
+                    for (let key in this.cookieStore) {
+                        if (this.cookieStore.hasOwnProperty(key)) {
+                            keyCollection.push(key);
+                        }
+                    }
+                    return keyCollection;
+                }
+            }
+        };
     }
 };
 
