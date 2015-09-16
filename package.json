@@ -2,11 +2,11 @@
     "name": "wildjs",
     "version": "0.0.1",
     "description": "Wildfish JS utils",
-    "main": "./dist/wildjs.js",
+    "main": "index.js",
     "scripts": {
         "test": "jest",
         "build:dev": "browserify ./index.js -o ./dist/wildfish.js -s wildfish -d",
-        "build": "browserify ./index.js -o ./dist/wildfish.js -s wildfish"
+        "build": "browserify ./index.js -o ./dist/wildfish.js"
     },
     "repository": {
         "type": "git",
@@ -16,7 +16,7 @@
         "wildfish"
     ],
     "author": "Jonas Hagstedt <hagstedt@gmail.com> (https://github.com/jonashagstedt)",
-    "license": "ISC",
+    "license": "BSD",
     "bugs": {
         "url": "https://github.com/wildfish/wildjs/issues"
     },
