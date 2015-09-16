@@ -21,7 +21,9 @@ const extraHeaders = {};
 function makeRequest (url, method, data, contentType = 'application/json') {
     return new Promise((resolve, reject) => {
 
-        url += "?format=json";
+        if (url.indexOf("?format=json") == -1 && url.indexOf("&format=json") == -1) {
+            url += "?format=json";
+        }
 
         const req = new XMLHttpRequest();
 
