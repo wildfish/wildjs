@@ -1,25 +1,28 @@
-//function getCookie (name) {
-//    // From https://docs.djangoproject.com/en/1.7/ref/contrib/csrf/
-//    var cookieValue = null, cookies, i, cookie;
-//    if (document.cookie && document.cookie !== "") {
-//        cookies = document.cookie.split(";");
-//        for (i = 0; i < cookies.length; i += 1) {
-//            cookie = cookies[i].trim(); // Doesn't work in all browsers
-//            // Does this cookie string begin with the name we want?
-//            if (cookie.substring(0, name.length + 1) === (name + "=")) {
-//                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-//                break;
-//            }
-//        }
-//    }
-//    return cookieValue;
-//}
-
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+function getCookie(name) {
+    // From https://docs.djangoproject.com/en/1.7/ref/contrib/csrf/
+    var cookieValue = null,
+        cookies,
+        i,
+        cookie;
+    if (document.cookie && document.cookie !== "") {
+        cookies = document.cookie.split(";");
+        for (i = 0; i < cookies.length; i += 1) {
+            cookie = cookies[i].trim(); // Doesn't work in all browsers
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 var extraHeaders = {};
 
 function makeRequest(url, method, data) {
@@ -32,14 +35,15 @@ function makeRequest(url, method, data) {
         }
 
         var req = new XMLHttpRequest();
+        req.open(method, url, true);
 
         // We don't want CSRF tokens if we are using this as
         // a public API for now
-        //if (method !== "GET") {
-        //    req.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
-        //}
-
-        req.open(method, url, true);
+        if (method !== "GET") {
+            try {
+                req.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+            } catch (ex) {}
+        }
 
         // if the content tpye is multipart/form-data let the browser handle it
         if (contentType !== "multipart/form-data") {
@@ -131,3 +135,5 @@ var rest = {
 };
 
 exports.rest = rest;
+
+// This is a bit of a hack
