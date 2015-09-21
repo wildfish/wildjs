@@ -30,9 +30,9 @@ function makeRequest(url, method, data) {
 
     return new Promise(function (resolve, reject) {
 
-        if (url.indexOf("?format=json") == -1 && url.indexOf("&format=json") == -1) {
-            url += "?format=json";
-        }
+        //if (url.indexOf("?format=json") == -1 && url.indexOf("&format=json") == -1) {
+        //    url += "?format=json";
+        //}
 
         var req = new XMLHttpRequest();
         req.open(method, url, true);
